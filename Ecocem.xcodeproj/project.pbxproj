@@ -1,0 +1,299 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E71A22BC15E208FD00148344 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71A22BB15E208FD00148344 /* UIKit.framework */; };
+		E71A22BE15E208FD00148344 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71A22BD15E208FD00148344 /* Foundation.framework */; };
+		E71A22C015E208FD00148344 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71A22BF15E208FD00148344 /* CoreGraphics.framework */; };
+		E71A22C615E208FD00148344 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E71A22C415E208FD00148344 /* InfoPlist.strings */; };
+		E71A22C815E208FD00148344 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E71A22C715E208FD00148344 /* main.m */; };
+		E71A22CC15E208FD00148344 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E71A22CB15E208FD00148344 /* AppDelegate.m */; };
+		E71A22CF15E208FD00148344 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E71A22CE15E208FD00148344 /* MasterViewController.m */; };
+		E71A22D215E208FD00148344 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E71A22D115E208FD00148344 /* DetailViewController.m */; };
+		E71A22D515E208FD00148344 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E71A22D315E208FD00148344 /* MasterViewController.xib */; };
+		E71A22D815E208FD00148344 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E71A22D615E208FD00148344 /* DetailViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E71A22B715E208FD00148344 /* Ecocem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ecocem.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E71A22BB15E208FD00148344 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E71A22BD15E208FD00148344 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E71A22BF15E208FD00148344 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E71A22C315E208FD00148344 /* Ecocem-Info.plist */ = {isa = PBXFileReference; path = "Ecocem-Info.plist"; sourceTree = "<group>"; };
+		E71A22C515E208FD00148344 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E71A22C715E208FD00148344 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E71A22C915E208FD00148344 /* Ecocem-Prefix.pch */ = {isa = PBXFileReference; path = "Ecocem-Prefix.pch"; sourceTree = "<group>"; };
+		E71A22CA15E208FD00148344 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		E71A22CB15E208FD00148344 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E71A22CD15E208FD00148344 /* MasterViewController.h */ = {isa = PBXFileReference; path = MasterViewController.h; sourceTree = "<group>"; };
+		E71A22CE15E208FD00148344 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		E71A22D015E208FD00148344 /* DetailViewController.h */ = {isa = PBXFileReference; path = DetailViewController.h; sourceTree = "<group>"; };
+		E71A22D115E208FD00148344 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		E71A22D415E208FD00148344 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController.xib; sourceTree = "<group>"; };
+		E71A22D715E208FD00148344 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E71A22B415E208FD00148344 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E71A22BC15E208FD00148344 /* UIKit.framework in Frameworks */,
+				E71A22BE15E208FD00148344 /* Foundation.framework in Frameworks */,
+				E71A22C015E208FD00148344 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E71A22AC15E208FC00148344 = {
+			isa = PBXGroup;
+			children = (
+				E71A22C115E208FD00148344 /* Ecocem */,
+				E71A22BA15E208FD00148344 /* Frameworks */,
+				E71A22B815E208FD00148344 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E71A22B815E208FD00148344 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E71A22B715E208FD00148344 /* Ecocem.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E71A22BA15E208FD00148344 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E71A22BB15E208FD00148344 /* UIKit.framework */,
+				E71A22BD15E208FD00148344 /* Foundation.framework */,
+				E71A22BF15E208FD00148344 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E71A22C115E208FD00148344 /* Ecocem */ = {
+			isa = PBXGroup;
+			children = (
+				E71A22CA15E208FD00148344 /* AppDelegate.h */,
+				E71A22CB15E208FD00148344 /* AppDelegate.m */,
+				E71A22CD15E208FD00148344 /* MasterViewController.h */,
+				E71A22CE15E208FD00148344 /* MasterViewController.m */,
+				E71A22D015E208FD00148344 /* DetailViewController.h */,
+				E71A22D115E208FD00148344 /* DetailViewController.m */,
+				E71A22D315E208FD00148344 /* MasterViewController.xib */,
+				E71A22D615E208FD00148344 /* DetailViewController.xib */,
+				E71A22C215E208FD00148344 /* Supporting Files */,
+			);
+			path = Ecocem;
+			sourceTree = "<group>";
+		};
+		E71A22C215E208FD00148344 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E71A22C315E208FD00148344 /* Ecocem-Info.plist */,
+				E71A22C415E208FD00148344 /* InfoPlist.strings */,
+				E71A22C715E208FD00148344 /* main.m */,
+				E71A22C915E208FD00148344 /* Ecocem-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E71A22B615E208FD00148344 /* Ecocem */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E71A22DB15E208FD00148344 /* Build configuration list for PBXNativeTarget "Ecocem" */;
+			buildPhases = (
+				E71A22B315E208FD00148344 /* Sources */,
+				E71A22B415E208FD00148344 /* Frameworks */,
+				E71A22B515E208FD00148344 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Ecocem;
+			productName = Ecocem;
+			productReference = E71A22B715E208FD00148344 /* Ecocem.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E71A22AE15E208FC00148344 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = E71A22B115E208FC00148344 /* Build configuration list for PBXProject "Ecocem" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E71A22AC15E208FC00148344;
+			productRefGroup = E71A22B815E208FD00148344 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E71A22B615E208FD00148344 /* Ecocem */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E71A22B515E208FD00148344 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E71A22C615E208FD00148344 /* InfoPlist.strings in Resources */,
+				E71A22D515E208FD00148344 /* MasterViewController.xib in Resources */,
+				E71A22D815E208FD00148344 /* DetailViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E71A22B315E208FD00148344 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E71A22C815E208FD00148344 /* main.m in Sources */,
+				E71A22CC15E208FD00148344 /* AppDelegate.m in Sources */,
+				E71A22CF15E208FD00148344 /* MasterViewController.m in Sources */,
+				E71A22D215E208FD00148344 /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E71A22C415E208FD00148344 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E71A22C515E208FD00148344 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E71A22D315E208FD00148344 /* MasterViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E71A22D415E208FD00148344 /* en */,
+			);
+			name = MasterViewController.xib;
+			sourceTree = "<group>";
+		};
+		E71A22D615E208FD00148344 /* DetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E71A22D715E208FD00148344 /* en */,
+			);
+			name = DetailViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E71A22D915E208FD00148344 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E71A22DA15E208FD00148344 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E71A22DC15E208FD00148344 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Ecocem/Ecocem-Prefix.pch";
+				INFOPLIST_FILE = "Ecocem/Ecocem-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E71A22DD15E208FD00148344 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Ecocem/Ecocem-Prefix.pch";
+				INFOPLIST_FILE = "Ecocem/Ecocem-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E71A22B115E208FC00148344 /* Build configuration list for PBXProject "Ecocem" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E71A22D915E208FD00148344 /* Debug */,
+				E71A22DA15E208FD00148344 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E71A22DB15E208FD00148344 /* Build configuration list for PBXNativeTarget "Ecocem" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E71A22DC15E208FD00148344 /* Debug */,
+				E71A22DD15E208FD00148344 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E71A22AE15E208FC00148344 /* Project object */;
+}
