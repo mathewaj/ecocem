@@ -13,6 +13,8 @@
 @end
 
 @implementation DetailViewController
+@synthesize delegate = _delegate;
+@synthesize navBar = _navBar;
 
 @synthesize detailItem = _detailItem;
 @synthesize detailDescriptionLabel = _detailDescriptionLabel;
@@ -34,8 +36,15 @@
     // Update the user interface for the detail item.
 
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+        self.detailDescriptionLabel.text = self.detailItem;
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navBar.tintColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
 }
 
 - (void)viewDidLoad
@@ -43,10 +52,19 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissViewController)];
+    self.navigationItem.rightBarButtonItem = doneButton;
+    
+}
+- (IBAction)doneButtonPushed:(id)sender {
+    
+    [self.delegate detailViewControllerDidFinish:self];
 }
 
 - (void)viewDidUnload
 {
+    [self setNavBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     self.detailDescriptionLabel = nil;
@@ -61,7 +79,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Detail", @"Detail");
+        self.title = NSLocalizedString(@"Calculator", @"Calculator");
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-fence.jpg"]];
     }
     return self;
 }

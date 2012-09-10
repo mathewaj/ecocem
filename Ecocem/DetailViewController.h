@@ -8,9 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class DetailViewController;
+
+@protocol DetailViewControllerDelegate
+- (void)detailViewControllerDidFinish:(DetailViewController *)controller;
+@end
+
 @interface DetailViewController : UIViewController
 
 @property (strong, nonatomic) id detailItem;
+
+@property (unsafe_unretained, nonatomic) id <DetailViewControllerDelegate> delegate;
+
+@property (unsafe_unretained, nonatomic) IBOutlet UINavigationBar *navBar;
 
 @property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
