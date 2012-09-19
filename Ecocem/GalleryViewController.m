@@ -21,7 +21,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        self.hidesBottomBarWhenPushed = YES;
     }
     return self;
 }
@@ -87,7 +87,9 @@
 {    
     DetailViewController *controller = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     controller.delegate = self;
-    controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    
+    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentModalViewController:controller animated:YES];
 }
 
@@ -100,9 +102,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem *infoButton = [[UIBarButtonItem alloc] initWithTitle:@"Project Info" style:UIBarButtonItemStyleBordered target:self action:@selector(showInfo:)];
-    self.navigationItem.rightBarButtonItem = infoButton;    
     
+    UIBarButtonItem *infoButton = [[UIBarButtonItem alloc] initWithTitle:@"Project Info" style:UIBarButtonItemStyleBordered target:self action:@selector(showInfo:)];
+    self.navigationItem.rightBarButtonItem = infoButton;
+
 }
 
 - (void)viewDidUnload

@@ -14,6 +14,8 @@
 		<string>Ecocem iPhone Icon Large.png</string>
 		<string>Default.png</string>
 		<string>Default@2x.png</string>
+		<string>Default.png</string>
+		<string>Default.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -25,6 +27,8 @@
 				<string>Ecocem iPhone Icon Large.png</string>
 				<string>Default.png</string>
 				<string>Default@2x.png</string>
+				<string>Default.png</string>
+				<string>Default.png</string>
 			</array>
 		</dict>
 	</dict>

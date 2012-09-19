@@ -44,7 +44,6 @@
 {
     [super viewWillAppear:animated];
     
-    self.navBar.tintColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
 }
 
 - (void)viewDidLoad
@@ -60,6 +59,7 @@
 - (IBAction)doneButtonPushed:(id)sender {
     
     [self.delegate detailViewControllerDidFinish:self];
+    //[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidUnload
@@ -79,7 +79,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Calculator", @"Calculator");
+        self.title = NSLocalizedString(@"Project Info", @"Project Info");
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-fence.jpg"]];
     }
     return self;

@@ -9,6 +9,7 @@
 #import "CalculatorViewController.h"
 #import "BlockActionSheet.h"
 #import "BlockAlertView.h"
+#import "Version Checking.h"
 
 @interface CalculatorViewController ()
 
@@ -59,7 +60,29 @@ BOOL pageControlBeingUsed;
     if (self) {
         // Set title and background pattern
         self.title = NSLocalizedString(@"Calculator", @"Calculator");
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-fence.jpg"]];
+        self.tabBarItem.image = [UIImage imageNamed:@"161-calculator.png"];
+        
+        // Add logo to left of nav bar for iOS5 upwards
+        
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"5.0")) {
+            
+            UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Ecocem-Logo-Icon.png"]];
+            [logoView setFrame:CGRectMake(0, 0, 44, 44)];
+            UIBarButtonItem *logoItem = [[UIBarButtonItem alloc] initWithCustomView:logoView];
+            
+            // Create a negative spacer to go to the left of our custom back button, 
+            // and pull it right to the edge:
+            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] 
+                                               initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace 
+                                               target:nil action:nil];
+            negativeSpacer.width = -5; 
+            // Note: We use 5 above b/c that's how many pixels of padding iOS seems to add
+            
+            // Add the two buttons together on the left:
+            self.navigationItem.leftBarButtonItems = [NSArray 
+                                                      arrayWithObjects:negativeSpacer, logoItem, nil];
+            
+        }
 
     }
     return self;
@@ -117,6 +140,11 @@ BOOL pageControlBeingUsed;
     
     
     pageControlBeingUsed = NO;
+    
+    // Set textfield properties
+    self.textField1.backgroundColor = [UIColor clearColor];
+    self.textField2.backgroundColor = [UIColor clearColor];
+    self.textField3.backgroundColor = [UIColor clearColor];
     
     // Add info button to top right corner
 
@@ -318,9 +346,9 @@ BOOL pageControlBeingUsed;
 
 -(void)loadScrollView
 {
-    // Scroll view is 3 pages wide
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*.5, self.view.frame.size.width, self.view.frame.size.height*.65)];
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width*3, self.view.frame.size.height/2);
+    // Scroll view is 2 pages wide
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*.55, self.view.frame.size.width, self.view.frame.size.height*.65)];
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width*2, self.view.frame.size.height/2);
     scrollView.pagingEnabled = YES;
     self.scrollView = scrollView;
     self.scrollView.delegate = self;
@@ -334,19 +362,19 @@ BOOL pageControlBeingUsed;
     
     UILabel *co2Label = [[UILabel alloc] initWithFrame:CGRectMake(width*0.1, 0, scrollView.frame.size.width*.8, scrollView.frame.size.height*.2)];
     co2Label.textAlignment = UITextAlignmentCenter;
-    co2Label.textColor = [UIColor whiteColor];
+    co2Label.textColor = [UIColor blueColor];
     [co2Label setText:@"CO2 EMISSIONS"];
     co2Label.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:co2Label];
     
     self.co2SavedLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*0.1, height*0.2, scrollView.frame.size.width*.8, scrollView.frame.size.height*.4)];
     self.co2SavedLabel.textAlignment = UITextAlignmentCenter;
-    self.co2SavedLabel.textColor = [UIColor whiteColor];
+    self.co2SavedLabel.textColor = [UIColor blueColor];
     self.co2SavedLabel.backgroundColor = [UIColor clearColor];
     
     [scrollView addSubview:self.co2SavedLabel];
     
-    // Scroll View Scene 2: Energy Used
+    /* Scroll View Scene 2: Energy Used
     // Text equivalent to quantities of gases
     // Image power plant with smoke
     
@@ -363,35 +391,45 @@ BOOL pageControlBeingUsed;
     self.energyLabel.backgroundColor = [UIColor clearColor];
     
     [scrollView addSubview:self.energyLabel];
+     */
         
     
-    // Scroll View Scene 3: Harmful Pollutants
+    // Scroll View Scene 2: Harmful Pollutants
     // Text equivalent to kg gases
     // Beakers exhaust fumes
-    UILabel *pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*2.1, 0, scrollView.frame.size.width*.8, scrollView.frame.size.height*.2)];
+    UILabel *pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, 0, scrollView.frame.size.width*.8, scrollView.frame.size.height*.2)];
     pollutantsLabel.textAlignment = UITextAlignmentCenter;
-    pollutantsLabel.textColor = [UIColor whiteColor];
-    [pollutantsLabel setText:@"POLLUTANTS"];
+    pollutantsLabel.textColor = [UIColor blueColor];
+    [pollutantsLabel setText:@"OTHER HARMFUL POLLUTANTS"];
     pollutantsLabel.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:pollutantsLabel];  
     
     [self.view addSubview:scrollView];
     
-    self.pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*2.1, height*0.2, scrollView.frame.size.width*.8, scrollView.frame.size.height*.4)];
+    self.pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, height*0.2, scrollView.frame.size.width*.8, scrollView.frame.size.height*.4)];
     self.pollutantsLabel.textAlignment = UITextAlignmentCenter;
-    self.pollutantsLabel.textColor = [UIColor whiteColor];
+    self.pollutantsLabel.textColor = [UIColor blueColor];
     self.pollutantsLabel.backgroundColor = [UIColor clearColor];
     
     [scrollView addSubview:self.pollutantsLabel];
     
-    // Add Page Control
+    // Add Page Control'
+    /*
     self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.view.frame.size.width*.4, self.view.frame.size.height*.9, self.view.frame.size.width*.2, self.view.frame.size.height*.1)];
-    self.pageControl.numberOfPages = 3;
+    self.pageControl.numberOfPages = 2;
     self.pageControl.currentPage = 0;
     [self.view addSubview:self.pageControl];
     
     // Set target action for paging control scrolling
-    [self.pageControl addTarget:self action:@selector(changePage) forControlEvents:UIControlEventValueChanged];
+    [self.pageControl addTarget:self action:@selector(changePage) forControlEvents:UIControlEventValueChanged];*/
+    
+    CGRect f = CGRectMake(0, self.view.frame.size.height-30, 320, 20); 
+    self.pageControl = [[PageControl alloc] initWithFrame:f];
+    self.pageControl.numberOfPages = 2;
+    self.pageControl.currentPage = 0;
+    self.pageControl.delegate = self;
+    self.pageControl.dotColorCurrentPage = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
+    [self.view addSubview:self.pageControl];
     
 }
 
@@ -412,6 +450,18 @@ BOOL pageControlBeingUsed;
     frame.size = self.scrollView.frame.size;
     [self.scrollView scrollRectToVisible:frame animated:YES];
     pageControlBeingUsed = YES;
+}
+
+- (void)pageControlPageDidChange:(PageControl *)pageControl
+{
+    // update the scroll view to the appropriate page
+    CGRect frame;
+    frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
+    frame.origin.y = 0;
+    frame.size = self.scrollView.frame.size;
+    [self.scrollView scrollRectToVisible:frame animated:YES];
+    pageControlBeingUsed = YES;
+
 }
 
 // This is to stop flashing in the scroll view
@@ -441,9 +491,8 @@ BOOL pageControlBeingUsed;
     // Update CO2 part of output scroll view
     float co2saved = co2Coefficient * concreteValue * cementValue * ggbsValue;
     int carsOffTheRoad = roundf(carCoefficent * concreteValue * cementValue * ggbsValue);
-    int treesSaved = roundf(treesCoefficent * concreteValue * cementValue * ggbsValue);
     self.co2SavedLabel.numberOfLines = 0;
-    self.co2SavedLabel.text = [NSString stringWithFormat:@"CO2 Saved: %.1f Tonnes\nCars Off The Road: %i\nTrees Saved: %i", co2saved, carsOffTheRoad, treesSaved];
+    self.co2SavedLabel.text = [NSString stringWithFormat:@"%.1f tonnes CO2 saved\n which is the equivalent of taking %i cars off the road", co2saved, carsOffTheRoad];
     
     // Update Energy part of output scroll view
     int energySavings =  roundf(energySaved * concreteValue * cementValue * ggbsValue);

@@ -92,6 +92,16 @@
 		E749636815E257EF00721875 /* CalculatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E749636615E257EE00721875 /* CalculatorViewController.xib */; };
 		E749637015E25F5E00721875 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E749636E15E25F5D00721875 /* GalleryViewController.m */; };
 		E749637115E25F5E00721875 /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E749636F15E25F5E00721875 /* GalleryViewController.xib */; };
+		E7623C901609CA4600E07050 /* Ecocem-Logo-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E7623C8F1609CA4600E07050 /* Ecocem-Logo-Icon.png */; };
+		E7623C931609D00900E07050 /* Info-Text.png in Resources */ = {isa = PBXBuildFile; fileRef = E7623C921609D00900E07050 /* Info-Text.png */; };
+		E7623C951609D35200E07050 /* textfield-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = E7623C941609D35200E07050 /* textfield-gradient.png */; };
+		E7623C971609D56E00E07050 /* textfield-background.png in Resources */ = {isa = PBXBuildFile; fileRef = E7623C961609D56E00E07050 /* textfield-background.png */; };
+		E7623C9A1609E18900E07050 /* Calculate Button.png in Resources */ = {isa = PBXBuildFile; fileRef = E7623C981609E18900E07050 /* Calculate Button.png */; };
+		E7623C9B1609E18900E07050 /* Calculate Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E7623C991609E18900E07050 /* Calculate Button@2x.png */; };
+		E7623C9E1609E65D00E07050 /* PageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E7623C9D1609E65D00E07050 /* PageControl.m */; };
+		E7623CA01609F22500E07050 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7623C9F1609F22500E07050 /* MessageUI.framework */; };
+		E7623CA31609F64300E07050 /* RotatableTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7623CA21609F64200E07050 /* RotatableTabBarViewController.m */; };
+		E7623CA5160A039E00E07050 /* 75-phone.png in Resources */ = {isa = PBXBuildFile; fileRef = E7623CA4160A039E00E07050 /* 75-phone.png */; };
 		E76EA0DA15E7DEF1001D7013 /* BlockActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = E76EA0D315E7DEF1001D7013 /* BlockActionSheet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E76EA0DB15E7DEF1001D7013 /* BlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = E76EA0D515E7DEF1001D7013 /* BlockAlertView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E76EA0DC15E7DEF1001D7013 /* BlockBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = E76EA0D715E7DEF1001D7013 /* BlockBackground.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -119,6 +129,7 @@
 		E76EA11415E8121F001D7013 /* alert-window.png in Resources */ = {isa = PBXBuildFile; fileRef = E76EA10C15E8121F001D7013 /* alert-window.png */; };
 		E76EA11515E8121F001D7013 /* alert-window@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E76EA10D15E8121F001D7013 /* alert-window@2x.png */; };
 		E76EA11B15EA75F8001D7013 /* website icon small.png in Resources */ = {isa = PBXBuildFile; fileRef = E76EA11A15EA75F4001D7013 /* website icon small.png */; };
+		E7CC504F15FE08AA0004E127 /* contact-us-button.png in Resources */ = {isa = PBXBuildFile; fileRef = E7CC504E15FE08AA0004E127 /* contact-us-button.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -259,6 +270,19 @@
 		E749636D15E25F5D00721875 /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
 		E749636E15E25F5D00721875 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 		E749636F15E25F5E00721875 /* GalleryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryViewController.xib; sourceTree = "<group>"; };
+		E7623C8F1609CA4600E07050 /* Ecocem-Logo-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ecocem-Logo-Icon.png"; sourceTree = "<group>"; };
+		E7623C911609CD9800E07050 /* Version Checking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Version Checking.h"; sourceTree = "<group>"; };
+		E7623C921609D00900E07050 /* Info-Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Info-Text.png"; sourceTree = "<group>"; };
+		E7623C941609D35200E07050 /* textfield-gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield-gradient.png"; sourceTree = "<group>"; };
+		E7623C961609D56E00E07050 /* textfield-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield-background.png"; sourceTree = "<group>"; };
+		E7623C981609E18900E07050 /* Calculate Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calculate Button.png"; sourceTree = "<group>"; };
+		E7623C991609E18900E07050 /* Calculate Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calculate Button@2x.png"; sourceTree = "<group>"; };
+		E7623C9C1609E65D00E07050 /* PageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageControl.h; sourceTree = "<group>"; };
+		E7623C9D1609E65D00E07050 /* PageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageControl.m; sourceTree = "<group>"; };
+		E7623C9F1609F22500E07050 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		E7623CA11609F64200E07050 /* RotatableTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotatableTabBarViewController.h; sourceTree = "<group>"; };
+		E7623CA21609F64200E07050 /* RotatableTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotatableTabBarViewController.m; sourceTree = "<group>"; };
+		E7623CA4160A039E00E07050 /* 75-phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "75-phone.png"; path = "../../../../../Downloads/glyphish-icons/PNG icons/75-phone.png"; sourceTree = "<group>"; };
 		E76EA0D215E7DEF1001D7013 /* BlockActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActionSheet.h; sourceTree = "<group>"; };
 		E76EA0D315E7DEF1001D7013 /* BlockActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockActionSheet.m; sourceTree = "<group>"; };
 		E76EA0D415E7DEF1001D7013 /* BlockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockAlertView.h; sourceTree = "<group>"; };
@@ -291,6 +315,7 @@
 		E76EA10C15E8121F001D7013 /* alert-window.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window.png"; sourceTree = "<group>"; };
 		E76EA10D15E8121F001D7013 /* alert-window@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window@2x.png"; sourceTree = "<group>"; };
 		E76EA11A15EA75F4001D7013 /* website icon small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "website icon small.png"; sourceTree = "<group>"; };
+		E7CC504E15FE08AA0004E127 /* contact-us-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-us-button.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,6 +323,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7623CA01609F22500E07050 /* MessageUI.framework in Frameworks */,
 				E749635715E252A300721875 /* QuartzCore.framework in Frameworks */,
 				E71A22BC15E208FD00148344 /* UIKit.framework in Frameworks */,
 				E71A22BE15E208FD00148344 /* Foundation.framework in Frameworks */,
@@ -311,6 +337,7 @@
 		E71A22AC15E208FC00148344 = {
 			isa = PBXGroup;
 			children = (
+				E7623C9F1609F22500E07050 /* MessageUI.framework */,
 				E749635615E252A300721875 /* QuartzCore.framework */,
 				E749630215E251F400721875 /* Nimbus */,
 				E76EA0D015E7DECB001D7013 /* AlertViewClass */,
@@ -343,17 +370,22 @@
 			children = (
 				E71A22CA15E208FD00148344 /* AppDelegate.h */,
 				E71A22CB15E208FD00148344 /* AppDelegate.m */,
+				E7623C911609CD9800E07050 /* Version Checking.h */,
 				E71A22CD15E208FD00148344 /* MasterViewController.h */,
 				E71A22CE15E208FD00148344 /* MasterViewController.m */,
 				E71A22D315E208FD00148344 /* MasterViewController.xib */,
 				E749636415E257EB00721875 /* CalculatorViewController.h */,
 				E749636515E257ED00721875 /* CalculatorViewController.m */,
 				E749636615E257EE00721875 /* CalculatorViewController.xib */,
+				E7623C9C1609E65D00E07050 /* PageControl.h */,
+				E7623C9D1609E65D00E07050 /* PageControl.m */,
 				E7362F8215E281D600B52E81 /* ProjectsGalleryViewController.h */,
 				E7362F8315E281D600B52E81 /* ProjectsGalleryViewController.m */,
 				E7362F8415E281D600B52E81 /* ProjectsGalleryViewController.xib */,
 				E749636D15E25F5D00721875 /* GalleryViewController.h */,
 				E749636E15E25F5D00721875 /* GalleryViewController.m */,
+				E7623CA11609F64200E07050 /* RotatableTabBarViewController.h */,
+				E7623CA21609F64200E07050 /* RotatableTabBarViewController.m */,
 				E749636F15E25F5E00721875 /* GalleryViewController.xib */,
 				E71A22D015E208FD00148344 /* DetailViewController.h */,
 				E71A22D115E208FD00148344 /* DetailViewController.m */,
@@ -385,6 +417,9 @@
 		E7228CDD15FA4F710052C927 /* Tab Items */ = {
 			isa = PBXGroup;
 			children = (
+				E7623CA4160A039E00E07050 /* 75-phone.png */,
+				E7623C981609E18900E07050 /* Calculate Button.png */,
+				E7623C991609E18900E07050 /* Calculate Button@2x.png */,
 				E7228CF115FAADA90052C927 /* Ecocem-Logo-Transparent.png */,
 				E7228CDF15FA4F930052C927 /* info_30.png */,
 				E7228CE015FA4F930052C927 /* 42-photos.png */,
@@ -431,7 +466,11 @@
 				E76EA0E015E7E42D001D7013 /* ActionSheet */,
 				E71CFA5D15E7B61A00352E4D /* background-fence.jpg */,
 				E71CFA4315E40B4000352E4D /* phone icon.png */,
+				E7623C961609D56E00E07050 /* textfield-background.png */,
+				E7623C941609D35200E07050 /* textfield-gradient.png */,
+				E7CC504E15FE08AA0004E127 /* contact-us-button.png */,
 				E71CFA4515E40BBE00352E4D /* iphone mail icon small.png */,
+				E7623C8F1609CA4600E07050 /* Ecocem-Logo-Icon.png */,
 				E7362FBB15E2D4E900B52E81 /* Default@2x.png */,
 				E7362FB915E2D4E300B52E81 /* Default.png */,
 				E7362FB715E2D4CE00B52E81 /* Ecocem iPhone Icon Large.png */,
@@ -440,6 +479,7 @@
 				E7362FF515E3C34300B52E81 /* Camera-icon.png */,
 				E7362FF615E3C34300B52E81 /* Info-icon.png */,
 				E76EA11A15EA75F4001D7013 /* website icon small.png */,
+				E7623C921609D00900E07050 /* Info-Text.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -715,6 +755,14 @@
 				E7228CE315FA4F930052C927 /* 42-photos.png in Resources */,
 				E7228CE415FA4F930052C927 /* 161-calculator.png in Resources */,
 				E7228CF215FAADA90052C927 /* Ecocem-Logo-Transparent.png in Resources */,
+				E7CC504F15FE08AA0004E127 /* contact-us-button.png in Resources */,
+				E7623C901609CA4600E07050 /* Ecocem-Logo-Icon.png in Resources */,
+				E7623C931609D00900E07050 /* Info-Text.png in Resources */,
+				E7623C951609D35200E07050 /* textfield-gradient.png in Resources */,
+				E7623C971609D56E00E07050 /* textfield-background.png in Resources */,
+				E7623C9A1609E18900E07050 /* Calculate Button.png in Resources */,
+				E7623C9B1609E18900E07050 /* Calculate Button@2x.png in Resources */,
+				E7623CA5160A039E00E07050 /* 75-phone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,6 +811,8 @@
 				E76EA0DB15E7DEF1001D7013 /* BlockAlertView.m in Sources */,
 				E76EA0DC15E7DEF1001D7013 /* BlockBackground.m in Sources */,
 				E76EA0DD15E7DEF1001D7013 /* BlockTextPromptAlertView.m in Sources */,
+				E7623C9E1609E65D00E07050 /* PageControl.m in Sources */,
+				E7623CA31609F64300E07050 /* RotatableTabBarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

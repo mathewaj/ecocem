@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PageControl.h"
 
-@interface CalculatorViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate, UIScrollViewDelegate>
+@interface CalculatorViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate, UIScrollViewDelegate, PageControlDelegate>
 
 // Model is three variables for the calculator
 @property (nonatomic, strong) NSNumber *concreteQuantity;
@@ -27,7 +28,7 @@
 
 // Secondary view has an output view with page control
 @property (retain, nonatomic) UIScrollView *scrollView;
-@property (retain, nonatomic) UIPageControl *pageControl;
+@property (retain, nonatomic) PageControl *pageControl;
 
 // Secondary views have labels
 @property (nonatomic, retain) UILabel *co2SavedLabel;

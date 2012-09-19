@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface EcocemIrelandViewController : UIViewController
+@interface EcocemIrelandViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 @end
