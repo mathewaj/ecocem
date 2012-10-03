@@ -18,17 +18,17 @@
     if (self) {
         // Set tab bar title and icon 
         self.title = NSLocalizedString(@"Info", @"Info");
-        self.tabBarItem.image = [UIImage imageNamed:@"info_30.png"];
+        self.tabBarItem.image = [UIImage imageNamed:@"42-info.png"];
         
         // Set image for centre of navbar
-        UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Ecocem-Logo-Transparent.png"]];
+        UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Ecocem-Transparent.png"]];
         self.navigationItem.titleView = titleImageView;
         
         // Add logo to left of nav bar for iOS5 upwards
         
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"5.0")) {
             
-            UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Ecocem-Logo-Icon.png"]];
+            UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top-Left-Logo.png"]];
             [logoView setFrame:CGRectMake(0, 0, 44, 44)];
             UIBarButtonItem *logoItem = [[UIBarButtonItem alloc] initWithCustomView:logoView];
             

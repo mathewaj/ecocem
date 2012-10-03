@@ -13,4 +13,8 @@
 
 @property (strong, nonatomic) NSMutableArray *photos;
 
+@property (strong, nonatomic) NSString *detail1;
+@property (strong, nonatomic) NSString *detail2;
+
+
 @end

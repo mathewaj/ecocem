@@ -16,11 +16,15 @@
 
 @implementation GalleryViewController
 @synthesize  photos = _photos;
+@synthesize detail1 = _detail1;
+@synthesize detail2 = _detail2;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
+        // Hide tab bar menu from gallery
         self.hidesBottomBarWhenPushed = YES;
     }
     return self;
@@ -84,13 +88,16 @@
 }
 
 - (IBAction)showInfo:(id)sender
-{    
+{   
     DetailViewController *controller = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     controller.delegate = self;
+    controller.detail1 = self.detail1;
+    controller.detail2 = self.detail2;
     
     
     controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentModalViewController:controller animated:YES];
+      
 }
 
 - (void)detailViewControllerDidFinish:(DetailViewController *)controller{
@@ -112,7 +119,7 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    self.photos = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

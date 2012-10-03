@@ -8,6 +8,7 @@
 
 #import "EcocemIrelandViewController.h"
 #import "Version Checking.h"
+#import "BlockAlertView.h"
 
 
 @interface EcocemIrelandViewController ()
@@ -27,7 +28,7 @@
         
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"5.0")) {
             
-            UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Ecocem-Logo-Icon.png"]];
+            UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top-Left-Logo.png"]];
             [logoView setFrame:CGRectMake(0, 0, 44, 44)];
             UIBarButtonItem *logoItem = [[UIBarButtonItem alloc] initWithCustomView:logoView];
             
@@ -69,7 +70,14 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 - (IBAction)callEcocem:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://+353(1)2981453"]];
+    BlockAlertView *alert = [BlockAlertView alertWithTitle:nil message:@"+353 (1) 6670900"];
+    
+    [alert addButtonWithTitle:@"Call" block:^(void){
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://+353(1)6670900"]];
+    }];
+    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
+    [alert show];
+    
 }
 
 - (IBAction)mailEcocem:(id)sender {
@@ -93,37 +101,57 @@
 }
 
 - (IBAction)openEcocemWebsite:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ecocem.ie"]];
+    
+    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Ecocem Website" message:@"This will exit the Ecocem app"];
+    
+    [alert addButtonWithTitle:@"OK" block:^(void){
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ecocem.ie"]];
+    }];
+    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
+    [alert show];
+    
 }
 
-- (IBAction)openEcocemMap:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ecocem.ie"]];
-}
 
 - (IBAction)openEcocemFacebookPage:(id)sender {
     
-    // First check if Facebook app available otherwise open page in Safari
-    NSURL *urlApp = [NSURL URLWithString:@"fb://profile/142727926223"];
-    if ([[UIApplication sharedApplication] canOpenURL:urlApp])
-    {
-        [[UIApplication sharedApplication] openURL:urlApp];
-    } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.facebook.com/142727926223"]];
-    }
+    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Ecocem Facebook" message:@"This will exit the Ecocem app"];
+    
+    [alert addButtonWithTitle:@"OK" block:^(void){
+        // First check if Facebook app available otherwise open page in Safari
+        NSURL *urlApp = [NSURL URLWithString:@"fb://profile/142727926223"];
+        if ([[UIApplication sharedApplication] canOpenURL:urlApp])
+        {
+            [[UIApplication sharedApplication] openURL:urlApp];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.facebook.com/142727926223"]];
+        }
+    }];
+    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
+    [alert show];
+    
+    
 }
 
 - (IBAction)openEcocemTwitterPage:(id)sender {
     
-    // First check if Twitter app available otherwise open page in Safari
-    NSURL *urlApp = [NSURL URLWithString:@"twitter://profile/21325242"];
-    if ([[UIApplication sharedApplication] canOpenURL:urlApp])
-    {
-        [[UIApplication sharedApplication] openURL:urlApp];
-        
-    } else {
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/Ecocem"]];
-    }
+    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Ecocem Twitter" message:@"This will exit the Ecocem app"];
+    
+    [alert addButtonWithTitle:@"OK" block:^(void){
+        // First check if Twitter app available otherwise open page in Safari
+        NSURL *urlApp = [NSURL URLWithString:@"twitter://user?screen_name=Ecocem"];
+        //user?id=21325242
+        if ([[UIApplication sharedApplication] canOpenURL:urlApp])
+        {
+            [[UIApplication sharedApplication] openURL:urlApp];
+            
+        } else {
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/Ecocem"]];
+        }
+    }];
+    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
+    [alert show];
     
 }
 
@@ -131,28 +159,33 @@
 #pragma mark MFMailComposeViewControllerDelegate Methods
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    NSString *message = [NSString string];
+    
+    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
     switch (result) {
         case MFMailComposeResultCancelled:
-            alert.message = @"Message Canceled";
+            message = @"Message Canceled";
             break;
         case MFMailComposeResultSaved:
-            alert.message = @"Message Saved";
+            message = @"Message Saved";
             break;
         case MFMailComposeResultSent:
-            alert.message = @"Message Sent";
+            message = @"Message Sent";
             break;
         case MFMailComposeResultFailed:
-            alert.message = @"Message Failed";
+            message = @"Message Failed";
             break;
         default:
-            alert.message = @"Message Not Sent";
+            message = @"Message Not Sent";
             break;
     }
     
     [self dismissModalViewControllerAnimated:YES];
     
+    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Status:" message:message];
+    [alert setCancelButtonWithTitle:@"OK" block:nil];
     [alert show];
 }
 

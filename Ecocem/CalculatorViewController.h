@@ -26,13 +26,14 @@
 // Accessory view to be added to keypad
 @property (nonatomic, retain) UIToolbar *keyboardToolbar;
 
-// Secondary view has an output view with page control
+// Calculator results view
 @property (retain, nonatomic) UIScrollView *scrollView;
-@property (retain, nonatomic) PageControl *pageControl;
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *resultsBackgroundImageView;
+@property (retain, nonatomic) UIImageView *rightDisclosureImageView;
+
 
 // Secondary views have labels
 @property (nonatomic, retain) UILabel *co2SavedLabel;
-@property (nonatomic, retain) UILabel *energyLabel;
 @property (nonatomic, retain) UILabel *pollutantsLabel;
 
 // Methods relating to accessory view

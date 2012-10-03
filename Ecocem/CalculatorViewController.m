@@ -20,7 +20,6 @@
 @synthesize concreteQuantity = _concreteQuantity;
 @synthesize cementQuantity = _cementQuantity;
 @synthesize ggbsQuantity = _ggbsQuantity;
-@synthesize pageControl = _pageControl;
 
 @synthesize textField1 = _textField1;
 @synthesize textField2 = _textField2;
@@ -28,9 +27,11 @@
 @synthesize keyboardToolbar = _keyboardToolbar;
 
 @synthesize scrollView = _scrollView;
+@synthesize resultsBackgroundImageView = _resultsBackgroundImageView;
+@synthesize rightDisclosureImageView = _rightDisclosureImageView;
+
 
 @synthesize co2SavedLabel = _co2SavedLabel;
-@synthesize energyLabel = _energyLabel;
 @synthesize pollutantsLabel = _pollutantsLabel;
 
 
@@ -38,17 +39,11 @@
 
 float co2Coefficient = 129.6 / 16000000;
 float carCoefficent = 41.6 / 16000000;
-float treesCoefficent = 40.8 / 16000000;
 
 float so2Saved = 400.0 / 16000000;
 float noxSaved = 560.0 / 16000000;
 float coSaved = 400.0 / 16000000;
 float pm10Saved = 69.7 / 16000000;
-
-float energySaved = 553000.0 / 16000000;
-float averageHomes = 28.5 / 16000000;
-
-BOOL pageControlBeingUsed;
 
 #define concreteUnits @"cubic metres"
 #define cementUnits @"kg"
@@ -66,7 +61,7 @@ BOOL pageControlBeingUsed;
         
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"5.0")) {
             
-            UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Ecocem-Logo-Icon.png"]];
+            UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top-Left-Logo.png"]];
             [logoView setFrame:CGRectMake(0, 0, 44, 44)];
             UIBarButtonItem *logoItem = [[UIBarButtonItem alloc] initWithCustomView:logoView];
             
@@ -82,16 +77,15 @@ BOOL pageControlBeingUsed;
             self.navigationItem.leftBarButtonItems = [NSArray 
                                                       arrayWithObjects:negativeSpacer, logoItem, nil];
             
+            
         }
 
     }
     return self;
 }
 
-- (void)viewDidLoad
+-(void)addAccesoryViewToKeyboard
 {
-    [super viewDidLoad];
-    
     // Add accessory view to number keypad, with Next, Previous and Done buttons
     
     if(self.keyboardToolbar == nil)
@@ -104,9 +98,9 @@ BOOL pageControlBeingUsed;
                                            target:self action:@selector(previousField:)];
         
         UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] 
-                                           initWithTitle:@"Next" 
-                                           style:UIBarButtonItemStyleBordered 
-                                           target:self action:@selector(nextField:)];
+                                       initWithTitle:@"Next" 
+                                       style:UIBarButtonItemStyleBordered 
+                                       target:self action:@selector(nextField:)];
         
         UIBarButtonItem *extraSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         
@@ -126,6 +120,10 @@ BOOL pageControlBeingUsed;
     self.textField2.inputAccessoryView = self.keyboardToolbar;
     self.textField3.inputAccessoryView = self.keyboardToolbar;
     
+}
+
+-(void)setUpTextFields
+{
     self.textField1.clearsOnBeginEditing = YES;
     self.textField2.clearsOnBeginEditing = YES;
     self.textField3.clearsOnBeginEditing = YES;
@@ -138,43 +136,56 @@ BOOL pageControlBeingUsed;
     self.textField2.placeholder = cementUnits;
     self.textField3.placeholder = ggbsUnits;
     
-    
-    pageControlBeingUsed = NO;
-    
     // Set textfield properties
     self.textField1.backgroundColor = [UIColor clearColor];
     self.textField2.backgroundColor = [UIColor clearColor];
     self.textField3.backgroundColor = [UIColor clearColor];
     
-    // Add info button to top right corner
+}
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self addAccesoryViewToKeyboard];
+    
+    [self setUpTextFields];
+    
+    // Add info button to top right corner
     UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight]; 
     [infoButton addTarget:self action:@selector(showInfoView:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
     
-    // Experimenting with tab bar
-    self.tabBarItem.image = [UIImage imageNamed:@"161-calculator.png"];
+    // Hide results background view
+    self.resultsBackgroundImageView.hidden = YES;
 }
 
-// Show info page when view appears
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [self showActionSheet:nil];
+    // Check if this is the first time viewing the calculator
+    // If so show help action sheet to appear
     
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasSeenTutorial"])
+    {
+        [self showActionSheet:nil];
+    }
+        
 }
 
 
 // Initial tutorial and info button action sheet
 - (void)showActionSheet:(id)sender
 {
-    BlockActionSheet *sheet = [BlockActionSheet sheetWithTitle:@"This is a carbon calculator which allows you to calculate the environmental benefits of using Ecocem in your project. \n\n Enter values for your project or use the default value button below.\n"];
+    BlockActionSheet *sheet = [BlockActionSheet sheetWithTitle:@"Use this app to calculate the environmental benefits of using Ecocem \n\n Enter values for your project or use the default values provided\n\n"];
+    
     [sheet setDestructiveButtonWithTitle:@"OK" block:nil];
-    [sheet addButtonWithTitle:@"Use Default Values" block:^{
+    [sheet addButtonWithTitle:@"Default Values" block:^{
         [self useDefaultValues];
     }];
     [sheet showInView:self.view];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasSeenTutorial"];
 }
 
 // Info button pushed
@@ -185,7 +196,7 @@ BOOL pageControlBeingUsed;
 
 - (void)viewDidUnload
 {
-    [self setPageControl:nil];
+    [self setResultsBackgroundImageView:nil];
     [super viewDidUnload];
     self.textField1 = nil;
     self.textField2 = nil;
@@ -251,6 +262,7 @@ BOOL pageControlBeingUsed;
 
 -(void)useDefaultValues
 {
+    [self resignKeyboard:nil];
     self.concreteQuantity = [NSNumber numberWithInt:1000];
     self.cementQuantity = [NSNumber numberWithInt:320];
     self.ggbsQuantity = [NSNumber numberWithInt:20];
@@ -271,11 +283,15 @@ BOOL pageControlBeingUsed;
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.scrollView.hidden = YES;
+    self.resultsBackgroundImageView.hidden = YES;
     
 }
 
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
+    // Check if field is GGBS percentage
+    // If so, ensure it is between 0 and 100
+    
     NSString *value = textField.text;
     NSString *units = textField.placeholder;
     
@@ -302,16 +318,29 @@ BOOL pageControlBeingUsed;
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
+    // When text field is finished editing update relevant property with value
+    
+    NSString *value = textField.text;
+    NSString *units = textField.placeholder;
+    
     if([textField.text isEqualToString:@""])
     {
-        // leave clear for now
+        if([units isEqualToString:concreteUnits])
+        {
+            self.concreteQuantity = nil;
+            
+        } else if([units isEqualToString:cementUnits])
+        {
+            self.cementQuantity = nil;
+            
+        } else if([units isEqualToString:ggbsUnits])
+        {
+            self.ggbsQuantity = nil;
+        }
         
     } else {
         
         // Set value and set textfield text
-        
-        NSString *value = textField.text;
-        NSString *units = textField.placeholder;
         
         if([units isEqualToString:concreteUnits])
         {
@@ -346,169 +375,104 @@ BOOL pageControlBeingUsed;
 
 -(void)loadScrollView
 {
+    
+    
     // Scroll view is 2 pages wide
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*.55, self.view.frame.size.width, self.view.frame.size.height*.65)];
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width*2, self.view.frame.size.height/2);
+    //UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height*.55, 300, 160)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 300, 160)];
+    CGFloat width = scrollView.frame.size.width;
+    CGFloat height = scrollView.frame.size.height;
+    
+    scrollView.contentSize = CGSizeMake(width*2, height);
     scrollView.pagingEnabled = YES;
     self.scrollView = scrollView;
     self.scrollView.delegate = self;
     
-    CGFloat width = scrollView.frame.size.width;
-    CGFloat height = scrollView.frame.size.height;
-    
     // Scroll View Scene 1: CO2 emissions
-    // Text equivalent to kilogrammes of CO2
-    // Image cars with exhaust fumes
     
-    UILabel *co2Label = [[UILabel alloc] initWithFrame:CGRectMake(width*0.1, 0, scrollView.frame.size.width*.8, scrollView.frame.size.height*.2)];
+    UILabel *co2Label = [[UILabel alloc] initWithFrame:CGRectMake(width*0.1, height*.05, width*.8, height*.2)];
     co2Label.textAlignment = UITextAlignmentCenter;
-    co2Label.textColor = [UIColor blueColor];
+    co2Label.textColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
     [co2Label setText:@"CO2 EMISSIONS"];
     co2Label.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:co2Label];
     
-    self.co2SavedLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*0.1, height*0.2, scrollView.frame.size.width*.8, scrollView.frame.size.height*.4)];
+    self.co2SavedLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*0.1, height*0.2, width*.8, height*.8)];
     self.co2SavedLabel.textAlignment = UITextAlignmentCenter;
-    self.co2SavedLabel.textColor = [UIColor blueColor];
+    self.co2SavedLabel.textColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
     self.co2SavedLabel.backgroundColor = [UIColor clearColor];
     
     [scrollView addSubview:self.co2SavedLabel];
     
-    /* Scroll View Scene 2: Energy Used
-    // Text equivalent to quantities of gases
-    // Image power plant with smoke
-    
-    UILabel *energyLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, 0, scrollView.frame.size.width*.8, scrollView.frame.size.height*.2)];
-    energyLabel.textAlignment = UITextAlignmentCenter;
-    energyLabel.textColor = [UIColor whiteColor];
-    [energyLabel setText:@"ENERGY"];
-    energyLabel.backgroundColor = [UIColor clearColor];
-    [scrollView addSubview:energyLabel];
-    
-    self.energyLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, height*0.2, scrollView.frame.size.width*.8, scrollView.frame.size.height*.4)];
-    self.energyLabel.textAlignment = UITextAlignmentCenter;
-    self.energyLabel.textColor = [UIColor whiteColor];
-    self.energyLabel.backgroundColor = [UIColor clearColor];
-    
-    [scrollView addSubview:self.energyLabel];
-     */
-        
-    
-    // Scroll View Scene 2: Harmful Pollutants
-    // Text equivalent to kg gases
-    // Beakers exhaust fumes
-    UILabel *pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, 0, scrollView.frame.size.width*.8, scrollView.frame.size.height*.2)];
+    // Screen View Scene 2: Harmful Pollutants
+
+    UILabel *pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, height*.05, width*.8, height*.3)];
     pollutantsLabel.textAlignment = UITextAlignmentCenter;
-    pollutantsLabel.textColor = [UIColor blueColor];
-    [pollutantsLabel setText:@"OTHER HARMFUL POLLUTANTS"];
+    pollutantsLabel.textColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
+    pollutantsLabel.numberOfLines = 0;
+    [pollutantsLabel setText:@"OTHER HARMFUL\nPOLLUTANTS"];
     pollutantsLabel.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:pollutantsLabel];  
     
-    [self.view addSubview:scrollView];
+    [self.resultsBackgroundImageView addSubview:scrollView];
+    self.resultsBackgroundImageView.userInteractionEnabled = YES;
     
-    self.pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, height*0.2, scrollView.frame.size.width*.8, scrollView.frame.size.height*.4)];
+    self.pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, height*0.25, width*.8, height*.8)];
     self.pollutantsLabel.textAlignment = UITextAlignmentCenter;
-    self.pollutantsLabel.textColor = [UIColor blueColor];
+    self.pollutantsLabel.textColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
     self.pollutantsLabel.backgroundColor = [UIColor clearColor];
     
     [scrollView addSubview:self.pollutantsLabel];
     
-    // Add Page Control'
-    /*
-    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.view.frame.size.width*.4, self.view.frame.size.height*.9, self.view.frame.size.width*.2, self.view.frame.size.height*.1)];
-    self.pageControl.numberOfPages = 2;
-    self.pageControl.currentPage = 0;
-    [self.view addSubview:self.pageControl];
+    // Set up disclosure buttons
+    self.rightDisclosureImageView = [[UIImageView alloc] initWithFrame:CGRectMake(269, self.scrollView.frame.size.height/2-15, 21, 29)];
+    self.rightDisclosureImageView.image = [UIImage imageNamed:@"Arrow2.png"];
+    [self.scrollView addSubview:self.rightDisclosureImageView];
     
-    // Set target action for paging control scrolling
-    [self.pageControl addTarget:self action:@selector(changePage) forControlEvents:UIControlEventValueChanged];*/
     
-    CGRect f = CGRectMake(0, self.view.frame.size.height-30, 320, 20); 
-    self.pageControl = [[PageControl alloc] initWithFrame:f];
-    self.pageControl.numberOfPages = 2;
-    self.pageControl.currentPage = 0;
-    self.pageControl.delegate = self;
-    self.pageControl.dotColorCurrentPage = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
-    [self.view addSubview:self.pageControl];
-    
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)sender {
-    if (!pageControlBeingUsed) {
-        // Update the page when more than 50% of the previous/next page is visible
-        CGFloat pageWidth = self.scrollView.frame.size.width;
-        int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-        self.pageControl.currentPage = page;
-    }
-}
-
-- (void)changePage {
-    // update the scroll view to the appropriate page
-    CGRect frame;
-    frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
-    frame.origin.y = 0;
-    frame.size = self.scrollView.frame.size;
-    [self.scrollView scrollRectToVisible:frame animated:YES];
-    pageControlBeingUsed = YES;
-}
-
-- (void)pageControlPageDidChange:(PageControl *)pageControl
-{
-    // update the scroll view to the appropriate page
-    CGRect frame;
-    frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
-    frame.origin.y = 0;
-    frame.size = self.scrollView.frame.size;
-    [self.scrollView scrollRectToVisible:frame animated:YES];
-    pageControlBeingUsed = YES;
-
-}
-
-// This is to stop flashing in the scroll view
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    pageControlBeingUsed = NO;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    pageControlBeingUsed = NO;
 }
 
 - (IBAction)calculateButtonPushed:(id)sender {
     
-    if(self.scrollView==nil)
+    // Alert if values have not been entered
+    if(!(self.concreteQuantity && self.cementQuantity && self.ggbsQuantity))
     {
-        // Set up calculator output view
-        [self loadScrollView];
+        BlockActionSheet *sheet = [BlockActionSheet sheetWithTitle:@"Please ensure all values have been entered"];
+        [sheet setDestructiveButtonWithTitle:@"OK" block:nil];
+        [sheet showInView:self.view];
+        
+    } else {
+        
+        if(self.scrollView==nil)
+        {
+            // Set up calculator output view
+            [self loadScrollView];
+        }
+        
+        self.scrollView.hidden = NO;
+        [self.scrollView setContentOffset:CGPointZero animated:NO];
+        self.resultsBackgroundImageView.hidden = NO;
+        
+        // Change values of labels in scroll view
+        float concreteValue = [self.concreteQuantity floatValue];
+        float cementValue = [self.cementQuantity floatValue];
+        float ggbsValue = [self.ggbsQuantity floatValue];
+        
+        // Update CO2 part of output scroll view
+        float co2saved = co2Coefficient * concreteValue * cementValue * ggbsValue;
+        int carsOffTheRoad = roundf(carCoefficent * concreteValue * cementValue * ggbsValue);
+        self.co2SavedLabel.numberOfLines = 0;
+        self.co2SavedLabel.text = [NSString stringWithFormat:@"%.1f tonnes CO2 saved\n\nEquivalent to taking\n %i cars off the road per year", co2saved, carsOffTheRoad];
+        
+        // Update Pollutants part of output scroll view
+        int so2Savings =  roundf(so2Saved * concreteValue * cementValue * ggbsValue);
+        int noxSavings =  roundf(noxSaved * concreteValue * cementValue * ggbsValue);
+        int coSavings =  roundf(coSaved * concreteValue * cementValue * ggbsValue);
+        int pm10Savings =  roundf(pm10Saved * concreteValue * cementValue * ggbsValue);
+        self.pollutantsLabel.numberOfLines = 0;
+        self.pollutantsLabel.text = [NSString stringWithFormat:@"SO2 saved: %i kg\nNOx saved: %i kg\nCO saved: %i kg\nPM10 saved: %i kg", so2Savings, noxSavings, coSavings, pm10Savings];
     }
     
-    self.scrollView.hidden = NO;
-    
-    // Change values of labels in scroll view
-    float concreteValue = [self.concreteQuantity floatValue];
-    float cementValue = [self.cementQuantity floatValue];
-    float ggbsValue = [self.ggbsQuantity floatValue];
-    
-    // Update CO2 part of output scroll view
-    float co2saved = co2Coefficient * concreteValue * cementValue * ggbsValue;
-    int carsOffTheRoad = roundf(carCoefficent * concreteValue * cementValue * ggbsValue);
-    self.co2SavedLabel.numberOfLines = 0;
-    self.co2SavedLabel.text = [NSString stringWithFormat:@"%.1f tonnes CO2 saved\n which is the equivalent of taking %i cars off the road", co2saved, carsOffTheRoad];
-    
-    // Update Energy part of output scroll view
-    int energySavings =  roundf(energySaved * concreteValue * cementValue * ggbsValue);
-    int homesInOneYear = roundf(averageHomes * concreteValue * cementValue * ggbsValue);
-    self.energyLabel.numberOfLines = 0;
-    self.energyLabel.text = [NSString stringWithFormat:@"Energy Saved: %i MJ\nAverage Homes in One Year: %i", energySavings, homesInOneYear];
-    
-    // Update Pollutants part of output scroll view
-    int so2Savings =  roundf(so2Saved * concreteValue * cementValue * ggbsValue);
-    int noxSavings =  roundf(noxSaved * concreteValue * cementValue * ggbsValue);
-    int coSavings =  roundf(coSaved * concreteValue * cementValue * ggbsValue);
-    int pm10Savings =  roundf(pm10Saved * concreteValue * cementValue * ggbsValue);
-    self.pollutantsLabel.numberOfLines = 0;
-    self.pollutantsLabel.text = [NSString stringWithFormat:@"SO2 Saved: %i kg\nNOx Saved: %i kg\nCO Saved: %i kg\nPM10 Saved: %i kg", so2Savings, noxSavings, coSavings, pm10Savings];
-    
-    // Set parameters for animations in scroll view
 }
 
 
