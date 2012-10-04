@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PageControl.h"
 
-@interface CalculatorViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate, UIScrollViewDelegate, PageControlDelegate>
+@interface CalculatorViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate, UIScrollViewDelegate>
 
 // Model is three variables for the calculator
 @property (nonatomic, strong) NSNumber *concreteQuantity;

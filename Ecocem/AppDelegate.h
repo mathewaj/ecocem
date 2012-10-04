@@ -14,7 +14,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-// For experiment purposes
 @property (strong, nonatomic) RotatableTabBarViewController *tabBarController;
 
 @end

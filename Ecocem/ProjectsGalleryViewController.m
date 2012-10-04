@@ -15,6 +15,7 @@
 @end
 
 @implementation ProjectsGalleryViewController
+
 @synthesize galleryViewController = _galleryViewController;
 
 
@@ -23,7 +24,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Set title and icon
-        self.title = NSLocalizedString(@"Gallery", @"Gallery");
+        self.title = @"Gallery";
         self.tabBarItem.image = [UIImage imageNamed:@"42-photos.png"];
         
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"5.0")) {
@@ -66,7 +67,7 @@
     {
         self.galleryViewController.photos = nil;
         self.galleryViewController.photos = [[NSMutableArray alloc] init];
-        [self.galleryViewController.photos addObject:[UIImage imageNamed:@"2-1hidesmall.png"]];
+        [self.galleryViewController.photos addObject:[UIImage imageNamed:@"2-1.png"]];
         [self.galleryViewController.photos addObject:[UIImage imageNamed:@"2-2.png"]];
         self.galleryViewController.detail1 = @"The Convention Centre Dublin is the world’s first carbon neutral convention centre.  The landmark building meets the highest standard of environmental sustainability.";
         self.galleryViewController.detail2 = @"By incorporating 70% Ecocem into the concrete, over 10,500 tonnes of CO2 were saved during the buildings construction.";
@@ -118,19 +119,31 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.translucent = NO;
     
-
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)shouldAutorotate {
+    
+    UIInterfaceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    return (orientation == UIInterfaceOrientationPortrait);
+    
+}
+
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    
+    self.galleryViewController = nil;
+
 }
 
 @end

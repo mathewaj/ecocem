@@ -7,9 +7,9 @@
 //
 
 #import "NIToolbarPhotoViewController.h"
-#import "DetailViewController.h"
 
-@interface GalleryViewController : NIToolbarPhotoViewController <NIPhotoAlbumScrollViewDataSource, DetailViewControllerDelegate>
+
+@interface GalleryViewController : NIToolbarPhotoViewController <NIPhotoAlbumScrollViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *photos;
 

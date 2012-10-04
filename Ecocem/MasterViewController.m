@@ -16,11 +16,12 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Set tab bar title and icon 
-        self.title = NSLocalizedString(@"Info", @"Info");
+        
+        // Set tab bar title and icon
+        self.title = @"Info";
         self.tabBarItem.image = [UIImage imageNamed:@"42-info.png"];
         
-        // Set image for centre of navbar
+        // Set Ecocem logo image for centre of navbar
         UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Ecocem-Transparent.png"]];
         self.navigationItem.titleView = titleImageView;
         
@@ -50,9 +51,5 @@
     return self;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
 
 @end

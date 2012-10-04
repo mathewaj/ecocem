@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProjectsGalleryViewController : UIViewController\
+@interface ProjectsGalleryViewController : UIViewController
 
 @property (strong, nonatomic) GalleryViewController *galleryViewController;
 

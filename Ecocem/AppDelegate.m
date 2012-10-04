@@ -12,6 +12,7 @@
 #import "CalculatorViewController.h"
 #import "ProjectsGalleryViewController.h"
 #import "EcocemIrelandViewController.h"
+#import "Flurry.h"
 
 
 @implementation AppDelegate
@@ -23,8 +24,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    // Set up tabbar with four view controllers
+    
     // Set up first page as info page
-    // Navigation controller used to include title navbar
     UIViewController *viewController1 = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
     UINavigationController *navigationController1 = [[UINavigationController alloc] initWithRootViewController:viewController1];
     navigationController1.navigationBar.tintColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
@@ -48,10 +50,15 @@
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:navigationController1, navigationController2, navigationController3, navigationController4, nil];
     self.tabBarController.selectedViewController = navigationController1;
     self.window.rootViewController = self.tabBarController;
+    
+    [Flurry startSession:@"TK4CNBXCFRVR7DKXDQN7"];
+    [Flurry logAllPageViews:self.tabBarController];
+    
     [self.window makeKeyAndVisible];
     return YES;
      
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

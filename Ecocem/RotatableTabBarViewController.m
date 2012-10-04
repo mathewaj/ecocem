@@ -15,27 +15,6 @@
 
 @implementation RotatableTabBarViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     
     // Only allow the gallery view controller enter landscape mode
@@ -44,6 +23,19 @@
         return YES;
     else
         return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)shouldAutorotate {
+    
+    UIInterfaceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    // Only allow the gallery view controller enter landscape mode
+    
+    if(self.selectedIndex == 2 && [[[self.viewControllers objectAtIndex:2] visibleViewController] isKindOfClass:[GalleryViewController class]])
+        return YES;
+    else
+        return (orientation == UIInterfaceOrientationPortrait);
+
 }
 
 @end

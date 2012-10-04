@@ -30,7 +30,6 @@
 @synthesize resultsBackgroundImageView = _resultsBackgroundImageView;
 @synthesize rightDisclosureImageView = _rightDisclosureImageView;
 
-
 @synthesize co2SavedLabel = _co2SavedLabel;
 @synthesize pollutantsLabel = _pollutantsLabel;
 
@@ -54,7 +53,7 @@ float pm10Saved = 69.7 / 16000000;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Set title and background pattern
-        self.title = NSLocalizedString(@"Calculator", @"Calculator");
+        self.title = @"Calculator";
         self.tabBarItem.image = [UIImage imageNamed:@"161-calculator.png"];
         
         // Add logo to left of nav bar for iOS5 upwards
@@ -84,7 +83,7 @@ float pm10Saved = 69.7 / 16000000;
     return self;
 }
 
--(void)addAccesoryViewToKeyboard
+-(void)addAccessoryViewToKeyboard
 {
     // Add accessory view to number keypad, with Next, Previous and Done buttons
     
@@ -111,7 +110,6 @@ float pm10Saved = 69.7 / 16000000;
                                        target:self action:@selector(resignKeyboard:)];
         
         [self.keyboardToolbar setItems:[[NSArray alloc] initWithObjects:previousButton, nextButton, extraSpace, doneButton, nil]];
-        
         
         
     }
@@ -147,7 +145,7 @@ float pm10Saved = 69.7 / 16000000;
 {
     [super viewDidLoad];
     
-    [self addAccesoryViewToKeyboard];
+    [self addAccessoryViewToKeyboard];
     
     [self setUpTextFields];
     
@@ -156,7 +154,7 @@ float pm10Saved = 69.7 / 16000000;
     [infoButton addTarget:self action:@selector(showInfoView:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
     
-    // Hide results background view
+    // Hide results background view at first
     self.resultsBackgroundImageView.hidden = YES;
 }
 
@@ -194,20 +192,6 @@ float pm10Saved = 69.7 / 16000000;
     [self showActionSheet:nil];
 }
 
-- (void)viewDidUnload
-{
-    [self setResultsBackgroundImageView:nil];
-    [super viewDidUnload];
-    self.textField1 = nil;
-    self.textField2 = nil;
-    self.textField3 = nil;
-    self.keyboardToolbar = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
 
 // Called when done button pushed, resigns keyboard
 -(void)resignKeyboard:(id)sender
@@ -225,7 +209,6 @@ float pm10Saved = 69.7 / 16000000;
         [self.textField3 resignFirstResponder];
     }
     
-    // Flash calculate button if all three fields populated
 }
 
 // Called when next button pushed
@@ -289,8 +272,7 @@ float pm10Saved = 69.7 / 16000000;
 
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    // Check if field is GGBS percentage
-    // If so, ensure it is between 0 and 100
+    // Check GGBS percentage is between 0 and 100
     
     NSString *value = textField.text;
     NSString *units = textField.placeholder;
@@ -375,11 +357,8 @@ float pm10Saved = 69.7 / 16000000;
 
 -(void)loadScrollView
 {
-    
-    
     // Scroll view is 2 pages wide
-    //UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height*.55, 300, 160)];
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 300, 160)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(5, 5, 290, 160)];
     CGFloat width = scrollView.frame.size.width;
     CGFloat height = scrollView.frame.size.height;
     
@@ -404,7 +383,7 @@ float pm10Saved = 69.7 / 16000000;
     
     [scrollView addSubview:self.co2SavedLabel];
     
-    // Screen View Scene 2: Harmful Pollutants
+    // Screen View Scene 2: Other Harmful Pollutants
 
     UILabel *pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, height*.05, width*.8, height*.3)];
     pollutantsLabel.textAlignment = UITextAlignmentCenter;
@@ -426,7 +405,7 @@ float pm10Saved = 69.7 / 16000000;
     
     // Set up disclosure buttons
     self.rightDisclosureImageView = [[UIImageView alloc] initWithFrame:CGRectMake(269, self.scrollView.frame.size.height/2-15, 21, 29)];
-    self.rightDisclosureImageView.image = [UIImage imageNamed:@"Arrow2.png"];
+    self.rightDisclosureImageView.image = [UIImage imageNamed:@"disclosure_arrow.png"];
     [self.scrollView addSubview:self.rightDisclosureImageView];
     
     
@@ -473,6 +452,33 @@ float pm10Saved = 69.7 / 16000000;
         self.pollutantsLabel.text = [NSString stringWithFormat:@"SO2 saved: %i kg\nNOx saved: %i kg\nCO saved: %i kg\nPM10 saved: %i kg", so2Savings, noxSavings, coSavings, pm10Savings];
     }
     
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    
+    self.textField1 = nil;
+    self.textField2 = nil;
+    self.textField3 = nil;
+    self.keyboardToolbar = nil;
+    
+    self.concreteQuantity = nil;
+    self.cementQuantity = nil;
+    self.ggbsQuantity = nil;
+    
+    self.textField1 = nil;
+    self.textField2 = nil;
+    self.textField3 = nil;
+    self.keyboardToolbar = nil;
+    
+    self.scrollView = nil;
+    self.resultsBackgroundImageView = nil;
+    self.rightDisclosureImageView = nil;
+    
+    
+    self.co2SavedLabel = nil;
+    self.pollutantsLabel = nil;
 }
 
 

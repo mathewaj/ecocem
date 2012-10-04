@@ -140,7 +140,8 @@
     [alert addButtonWithTitle:@"OK" block:^(void){
         // First check if Twitter app available otherwise open page in Safari
         NSURL *urlApp = [NSURL URLWithString:@"twitter://user?screen_name=Ecocem"];
-        //user?id=21325242
+        //user?screen_name=Ecocem
+        //?id=21325242
         if ([[UIApplication sharedApplication] canOpenURL:urlApp])
         {
             [[UIApplication sharedApplication] openURL:urlApp];
@@ -161,8 +162,6 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     
     NSString *message = [NSString string];
-    
-    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
     switch (result) {
         case MFMailComposeResultCancelled:

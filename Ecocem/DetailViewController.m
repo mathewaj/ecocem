@@ -13,16 +13,15 @@
 @synthesize detailDescriptionLabel2 = _detailDescriptionLabel2;
 @synthesize detail1 = _detail1;
 @synthesize detail2 = _detail2;
-@synthesize delegate = _delegate;
 @synthesize navBar = _navBar;
 
-#pragma mark - Managing the detail items
-
-
--(void)viewWillAppear:(BOOL)animated
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    [super viewWillAppear:animated];
-    
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = @"Project Info";
+    }
+    return self;
 }
 
 - (void)viewDidLoad
@@ -39,29 +38,25 @@
     
 }
 
-- (void)viewDidUnload
-{
-    [self setNavBar:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-
-}
 - (IBAction)doneButtonPushed:(id)sender {
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)viewDidUnload
 {
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    [super viewDidUnload];
+    self.detailDescriptionLabel1 = nil;
+    self.detailDescriptionLabel2 = nil;
+    self.detail1 = nil;
+    self.detail2 = nil;
+    self.navBar = nil;
+    
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = NSLocalizedString(@"Project Info", @"Project Info");
-    }
-    return self;
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
 }
+
+
 							
 @end

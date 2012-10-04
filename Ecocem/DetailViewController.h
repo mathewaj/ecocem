@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class DetailViewController;
-
-@protocol DetailViewControllerDelegate
-- (void)detailViewControllerDidFinish:(DetailViewController *)controller;
-@end
 
 @interface DetailViewController : UIViewController
 
@@ -21,8 +16,6 @@
 
 @property (strong, nonatomic) NSString *detail1;
 @property (strong, nonatomic) NSString *detail2;
-
-@property (unsafe_unretained, nonatomic) id <DetailViewControllerDelegate> delegate;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UINavigationBar *navBar;
 

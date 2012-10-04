@@ -7,7 +7,6 @@
 //
 
 #import "GalleryViewController.h"
-#import "CaptionedPhotoView.h"
 #import "DetailViewController.h"
 
 @interface GalleryViewController ()
@@ -43,8 +42,6 @@
 
 - (NSInteger)numberOfPagesInPagingScrollView:(NIPagingScrollView *)pagingScrollView
 {
-    NSInteger photosCount = [self.photos count];
-    NSLog(@"Number of photos is:%d",photosCount);
     return [self.photos count];
 }
 
@@ -82,7 +79,7 @@
     self.photoAlbumView.dataSource = self;
     
     // This title will be displayed until we get the results back for the album information.
-    self.title = NSLocalizedString(@"Loading...", @"Navigation bar title - Loading a photo album");
+    self.title = @"1 of 2";
     
     [self.photoAlbumView reloadData];
 }
@@ -90,12 +87,10 @@
 - (IBAction)showInfo:(id)sender
 {   
     DetailViewController *controller = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    controller.delegate = self;
     controller.detail1 = self.detail1;
     controller.detail2 = self.detail2;
     
-    
-    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    //controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentModalViewController:controller animated:YES];
       
 }
@@ -120,6 +115,8 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     self.photos = nil;
+    self.detail1 = nil;
+    self.detail2 = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
