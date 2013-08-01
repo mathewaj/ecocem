@@ -53,6 +53,19 @@
     
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)shouldAutorotate {
+    
+    UIInterfaceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    return (orientation == UIInterfaceOrientationPortrait);
+    
+}
+
 -(NSUInteger)supportedInterfaceOrientations{
     return UIInterfaceOrientationMaskPortrait;
 }

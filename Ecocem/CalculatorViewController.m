@@ -33,20 +33,9 @@
 @synthesize co2SavedLabel = _co2SavedLabel;
 @synthesize pollutantsLabel = _pollutantsLabel;
 
-
-// Set the coefficents separately from the rest of the code
-
-float co2Coefficient = 129.6 / 16000000;
-float carCoefficent = 41.6 / 16000000;
-
-float so2Saved = 400.0 / 16000000;
-float noxSaved = 560.0 / 16000000;
-float coSaved = 400.0 / 16000000;
-float pm10Saved = 69.7 / 16000000;
-
-#define concreteUnits @"cubic metres"
+#define concreteUnits @"m³"
 #define cementUnits @"kg"
-#define ggbsUnits @"% GGBS"
+#define ggbsUnits @"%"
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,31 +43,6 @@ float pm10Saved = 69.7 / 16000000;
     if (self) {
         // Set title and background pattern
         self.title = @"Calculator";
-        self.tabBarItem.image = [UIImage imageNamed:@"161-calculator.png"];
-        
-        // Add logo to left of nav bar for iOS5 upwards
-        
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"5.0")) {
-            
-            UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top-Left-Logo.png"]];
-            [logoView setFrame:CGRectMake(0, 0, 44, 44)];
-            UIBarButtonItem *logoItem = [[UIBarButtonItem alloc] initWithCustomView:logoView];
-            
-            // Create a negative spacer to go to the left of our custom back button, 
-            // and pull it right to the edge:
-            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] 
-                                               initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace 
-                                               target:nil action:nil];
-            negativeSpacer.width = -5; 
-            // Note: We use 5 above b/c that's how many pixels of padding iOS seems to add
-            
-            // Add the two buttons together on the left:
-            self.navigationItem.leftBarButtonItems = [NSArray 
-                                                      arrayWithObjects:negativeSpacer, logoItem, nil];
-            
-            
-        }
-
     }
     return self;
 }
@@ -248,7 +212,7 @@ float pm10Saved = 69.7 / 16000000;
     [self resignKeyboard:nil];
     self.concreteQuantity = [NSNumber numberWithInt:1000];
     self.cementQuantity = [NSNumber numberWithInt:320];
-    self.ggbsQuantity = [NSNumber numberWithInt:20];
+    self.ggbsQuantity = [NSNumber numberWithInt:50];
     [self updateLabels];
     [self calculateButtonPushed:nil];
 }
@@ -358,7 +322,7 @@ float pm10Saved = 69.7 / 16000000;
 -(void)loadScrollView
 {
     // Scroll view is 2 pages wide
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(5, 5, 290, 160)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(5, 5, 296, 200)];
     CGFloat width = scrollView.frame.size.width;
     CGFloat height = scrollView.frame.size.height;
     
@@ -369,49 +333,63 @@ float pm10Saved = 69.7 / 16000000;
     
     // Scroll View Scene 1: CO2 emissions
     
-    UILabel *co2Label = [[UILabel alloc] initWithFrame:CGRectMake(width*0.1, height*.05, width*.8, height*.2)];
+    UILabel *co2Label = [[UILabel alloc] initWithFrame:CGRectMake(width*0.1, 0, width*.8, height*.2)];
     co2Label.textAlignment = UITextAlignmentCenter;
-    co2Label.textColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
-    [co2Label setText:@"CO2 EMISSIONS"];
+    //co2Label.textColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
+    co2Label.textColor = [UIColor yellowColor];
+    [co2Label setText:@"CO₂ EMISSIONS"];
     co2Label.backgroundColor = [UIColor clearColor];
+    co2Label.shadowColor = [UIColor blackColor];
     [scrollView addSubview:co2Label];
     
-    self.co2SavedLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*0.1, height*0.2, width*.8, height*.8)];
+    self.co2SavedLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*0.1, height*0.15, width*.8, height*.85)];
     self.co2SavedLabel.textAlignment = UITextAlignmentCenter;
-    self.co2SavedLabel.textColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
+    //self.co2SavedLabel.textColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
+    self.co2SavedLabel.textColor = [UIColor whiteColor];
     self.co2SavedLabel.backgroundColor = [UIColor clearColor];
     
     [scrollView addSubview:self.co2SavedLabel];
     
     // Screen View Scene 2: Other Harmful Pollutants
 
-    UILabel *pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, height*.05, width*.8, height*.3)];
+    UILabel *pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, 0, width*.8, height*.3)];
     pollutantsLabel.textAlignment = UITextAlignmentCenter;
-    pollutantsLabel.textColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
+    pollutantsLabel.textColor = [UIColor yellowColor];
+    pollutantsLabel.shadowColor = [UIColor blackColor];
     pollutantsLabel.numberOfLines = 0;
-    [pollutantsLabel setText:@"OTHER HARMFUL\nPOLLUTANTS"];
+    [pollutantsLabel setText:@"OTHER HARMFUL POLLUTANTS"];
     pollutantsLabel.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:pollutantsLabel];  
     
     [self.resultsBackgroundImageView addSubview:scrollView];
     self.resultsBackgroundImageView.userInteractionEnabled = YES;
     
-    self.pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, height*0.25, width*.8, height*.8)];
+    self.pollutantsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width*1.1, height*0.2, width*.8, height*.8)];
     self.pollutantsLabel.textAlignment = UITextAlignmentCenter;
-    self.pollutantsLabel.textColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
+    self.pollutantsLabel.textColor = [UIColor whiteColor];
     self.pollutantsLabel.backgroundColor = [UIColor clearColor];
     
     [scrollView addSubview:self.pollutantsLabel];
     
     // Set up disclosure buttons
-    self.rightDisclosureImageView = [[UIImageView alloc] initWithFrame:CGRectMake(269, self.scrollView.frame.size.height/2-15, 21, 29)];
+    self.rightDisclosureImageView = [[UIImageView alloc] initWithFrame:CGRectMake(269, self.scrollView.frame.size.height/2-15, 24, 31)];
     self.rightDisclosureImageView.image = [UIImage imageNamed:@"disclosure_arrow.png"];
+    self.rightDisclosureImageView.userInteractionEnabled = YES;
     [self.scrollView addSubview:self.rightDisclosureImageView];
     
+    // Add tap gesture recogniser to allow scrolling on tap
+    UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(arrowPressed)];
+    [self.rightDisclosureImageView addGestureRecognizer:tgr];
     
 }
 
-- (IBAction)calculateButtonPushed:(id)sender {
+-(void)arrowPressed
+{
+    [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width, 0) animated:YES];
+}
+
+- (IBAction)calculateButtonPushed:(UIButton *)sender {
+    
     
     // Alert if values have not been entered
     if(!(self.concreteQuantity && self.cementQuantity && self.ggbsQuantity))
@@ -438,18 +416,32 @@ float pm10Saved = 69.7 / 16000000;
         float ggbsValue = [self.ggbsQuantity floatValue];
         
         // Update CO2 part of output scroll view
-        float co2saved = co2Coefficient * concreteValue * cementValue * ggbsValue;
-        int carsOffTheRoad = roundf(carCoefficent * concreteValue * cementValue * ggbsValue);
+        // CO2 savings: {[kg’s of cement x % GGBS (as a number) x metres cubed concrete]/100000}x0.721 = answer in tonnes (try it at 2 decimal places)
+        float co2saved = cementValue * ggbsValue * concreteValue / 100000 * 0.721;
+        
+        // Equivalent cars: CO2savings/2.2 = answer in cars
+        int carsOffTheRoad = roundf(co2saved / 2.2);
         self.co2SavedLabel.numberOfLines = 0;
-        self.co2SavedLabel.text = [NSString stringWithFormat:@"%.1f tonnes CO2 saved\n\nEquivalent to taking\n %i cars off the road per year", co2saved, carsOffTheRoad];
+        self.co2SavedLabel.text = [NSString stringWithFormat:@"%.2f tonnes CO₂ saved\n\nEquivalent to taking\n %i cars off the road per year", co2saved, carsOffTheRoad];
         
         // Update Pollutants part of output scroll view
-        int so2Savings =  roundf(so2Saved * concreteValue * cementValue * ggbsValue);
-        int noxSavings =  roundf(noxSaved * concreteValue * cementValue * ggbsValue);
-        int coSavings =  roundf(coSaved * concreteValue * cementValue * ggbsValue);
-        int pm10Savings =  roundf(pm10Saved * concreteValue * cementValue * ggbsValue);
+        
+        /*
+         NOx: {[kg’s of cement x % GGBS (as a number) x metres cubed concrete]/100000}x1.729 = answer in Kg’s (try it at 2 decimal places)
+         SO2: {[kg’s of cement x % GGBS (as a number) x metres cubed concrete]/100000}x0.899987 = answer in Kg’s (try it at 2 decimal places)
+         CO: {[kg’s of cement x % GGBS (as a number) x metres cubed concrete]/100000}x1.4931 = answer in Kg’s (try it at 2 decimal places)
+         PM10: {[kg’s of cement x % GGBS (as a number) x metres cubed concrete]/100000}x0.006 = answer in Kg’s (try it at 2 decimal places)
+         
+         */
+        
+        float so2Savings = cementValue * ggbsValue * concreteValue / 100000 * 1.729;
+        float noxSavings = cementValue * ggbsValue * concreteValue / 100000 * 0.899987;
+        float coSavings = cementValue * ggbsValue * concreteValue / 100000 * 1.4931;
+        float pm10Savings = cementValue * ggbsValue * concreteValue / 100000 * 0.006;
+        
+         
         self.pollutantsLabel.numberOfLines = 0;
-        self.pollutantsLabel.text = [NSString stringWithFormat:@"SO2 saved: %i kg\nNOx saved: %i kg\nCO saved: %i kg\nPM10 saved: %i kg", so2Savings, noxSavings, coSavings, pm10Savings];
+        self.pollutantsLabel.text = [NSString stringWithFormat:@"SO₂ saved: %.2f kg\nNOx saved: %.2f kg\nCO saved: %.2f kg\nPM₁₀ saved: %.2f kg", so2Savings, noxSavings, coSavings, pm10Savings];
     }
     
 }
@@ -479,6 +471,19 @@ float pm10Saved = 69.7 / 16000000;
     
     self.co2SavedLabel = nil;
     self.pollutantsLabel = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)shouldAutorotate {
+    
+    UIInterfaceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    return (orientation == UIInterfaceOrientationPortrait);
+    
 }
 
 

@@ -9,6 +9,8 @@
 #import "EcocemIrelandViewController.h"
 #import "Version Checking.h"
 #import "BlockAlertView.h"
+#import "WebViewController.h"
+#import "Reachability.h"
 
 
 @interface EcocemIrelandViewController ()
@@ -24,27 +26,6 @@
         
         // Set title, icon and logo
         self.title = @"Contact";
-        self.tabBarItem.image = [UIImage imageNamed:@"75-phone.png"];
-        
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"5.0")) {
-            
-            UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top-Left-Logo.png"]];
-            [logoView setFrame:CGRectMake(0, 0, 44, 44)];
-            UIBarButtonItem *logoItem = [[UIBarButtonItem alloc] initWithCustomView:logoView];
-            
-            // Create a negative spacer to go to the left of our custom back button, 
-            // and pull it right to the edge:
-            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] 
-                                               initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace 
-                                               target:nil action:nil];
-            negativeSpacer.width = -5; 
-            // Note: We use 5 above b/c that's how many pixels of padding iOS seems to add
-            
-            // Add the two buttons together on the left:
-            self.navigationItem.leftBarButtonItems = [NSArray 
-                                                      arrayWithObjects:negativeSpacer, logoItem, nil];
-            
-        }
 
     }
     return self;
@@ -53,8 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
     
 }
 
@@ -69,11 +48,20 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (BOOL)shouldAutorotate {
+    
+    UIInterfaceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    return (orientation == UIInterfaceOrientationPortrait);
+    
+}
+
 - (IBAction)callEcocem:(id)sender {
-    BlockAlertView *alert = [BlockAlertView alertWithTitle:nil message:@"+353 (1) 6670900"];
+    BlockAlertView *alert = [BlockAlertView alertWithTitle:nil message:@"+353 (1) 678 1800"];
     
     [alert addButtonWithTitle:@"Call" block:^(void){
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://+353(1)6670900"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://+353(1)6781800"]];
     }];
     [alert setCancelButtonWithTitle:@"Cancel" block:nil];
     [alert show];
@@ -82,78 +70,127 @@
 
 - (IBAction)mailEcocem:(id)sender {
     
-    if ([MFMailComposeViewController canSendMail]) {
-        MFMailComposeViewController *mfViewController = [[MFMailComposeViewController alloc] init];
-        mfViewController.mailComposeDelegate = self;
-        [mfViewController setSubject:@"Ecocem Query"];
-        [mfViewController setToRecipients:[NSArray arrayWithObject:@"info@ecocem.ie"]];
-        
-        [self presentModalViewController:mfViewController animated:YES];
-
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"Your phone is not currently configured to send mail." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-        
-        [alert show];
-
-    }
+    // Check for connectivity
     
+    if(![self connected])
+    {
+        [self noConnectionAlert];
+        
+    } else {
+        
+        if ([MFMailComposeViewController canSendMail]) {
+            MFMailComposeViewController *mfViewController = [[MFMailComposeViewController alloc] init];
+            mfViewController.mailComposeDelegate = self;
+            [mfViewController setSubject:@"I have a question..."];
+            [mfViewController setToRecipients:[NSArray arrayWithObject:@"info@ecocem.ie"]];
+            
+            [self presentModalViewController:mfViewController animated:YES];
+            
+        } else {
+            
+            BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Status:" message:@"Your phone is not currently configured to send mail."];
+            [alert setCancelButtonWithTitle:@"OK" block:nil];
+            [alert show];
+            
+        }
+        
+    }
     
 }
 
 - (IBAction)openEcocemWebsite:(id)sender {
     
-    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Ecocem Website" message:@"This will exit the Ecocem app"];
+    // Check web connection
+    if(![self connected])
+    {
+        [self noConnectionAlert];
+        
+    } else {
+        NSURL *url = [NSURL URLWithString:@"http://www.ecocem.ie"];
+        WebViewController *wvc = [[WebViewController alloc] init];
+        wvc.url = url;
+        wvc.pageTitle = @"Ecocem Website";
+        [self presentModalViewController:wvc animated:YES];
+    }
     
-    [alert addButtonWithTitle:@"OK" block:^(void){
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ecocem.ie"]];
-    }];
-    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
-    [alert show];
+    
     
 }
 
 
 - (IBAction)openEcocemFacebookPage:(id)sender {
     
-    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Ecocem Facebook" message:@"This will exit the Ecocem app"];
-    
-    [alert addButtonWithTitle:@"OK" block:^(void){
-        // First check if Facebook app available otherwise open page in Safari
+    // Check web connection
+    if(![self connected])
+    {
+        [self noConnectionAlert];
+        
+    } else {
+        
+        // First check if Facebook app available otherwise open page in web view
         NSURL *urlApp = [NSURL URLWithString:@"fb://profile/142727926223"];
         if ([[UIApplication sharedApplication] canOpenURL:urlApp])
         {
-            [[UIApplication sharedApplication] openURL:urlApp];
+            
+            BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Ecocem Facebook" message:@"This will exit the Ecocem app"];
+            
+            [alert addButtonWithTitle:@"OK" block:^(void){
+                [[UIApplication sharedApplication] openURL:urlApp];
+            }];
+            [alert setCancelButtonWithTitle:@"Cancel" block:nil];
+            [alert show];
+            
+            
         } else {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.facebook.com/142727926223"]];
+            
+            NSURL *url = [NSURL URLWithString:@"http://www.facebook.com/142727926223"];
+            WebViewController *wvc = [[WebViewController alloc] init];
+            wvc.url = url;
+            wvc.pageTitle = @"Ecocem Facebook";
+            [self presentModalViewController:wvc animated:YES];
         }
-    }];
-    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
-    [alert show];
+        
+    }
     
     
 }
 
 - (IBAction)openEcocemTwitterPage:(id)sender {
     
-    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Ecocem Twitter" message:@"This will exit the Ecocem app"];
-    
-    [alert addButtonWithTitle:@"OK" block:^(void){
-        // First check if Twitter app available otherwise open page in Safari
+    // Check web connection
+    if(![self connected])
+    {
+        [self noConnectionAlert];
+        
+    } else {
+        
+        // First check if Twitter app available otherwise open page in web view
         NSURL *urlApp = [NSURL URLWithString:@"twitter://user?screen_name=Ecocem"];
-        //user?screen_name=Ecocem
-        //?id=21325242
         if ([[UIApplication sharedApplication] canOpenURL:urlApp])
         {
-            [[UIApplication sharedApplication] openURL:urlApp];
+            
+            BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Ecocem Twitter" message:@"This will exit the Ecocem app"];
+            
+            [alert addButtonWithTitle:@"OK" block:^(void){
+                [[UIApplication sharedApplication] openURL:urlApp];
+            }];
+            [alert setCancelButtonWithTitle:@"Cancel" block:nil];
+            [alert show];
+            
             
         } else {
             
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/Ecocem"]];
+            NSURL *url = [NSURL URLWithString:@"https://twitter.com/Ecocem"];
+            WebViewController *wvc = [[WebViewController alloc] init];
+            wvc.url = url;
+            wvc.pageTitle = @"Ecocem Twitter";
+            [self presentModalViewController:wvc animated:YES];
         }
-    }];
-    [alert setCancelButtonWithTitle:@"Cancel" block:nil];
-    [alert show];
+        
+    }
     
+    
+        
 }
 
 #pragma mark -
@@ -161,7 +198,7 @@
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     
-    NSString *message = [NSString string];
+    NSString *message = @"";
     
     switch (result) {
         case MFMailComposeResultCancelled:
@@ -184,6 +221,20 @@
     [self dismissModalViewControllerAnimated:YES];
     
     BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Status:" message:message];
+    [alert setCancelButtonWithTitle:@"OK" block:nil];
+    [alert show];
+}
+
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return !(networkStatus == NotReachable);
+}
+
+-(void)noConnectionAlert
+{
+    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Error" message:@"Your device does not have a working internet connection"];
     [alert setCancelButtonWithTitle:@"OK" block:nil];
     [alert show];
 }

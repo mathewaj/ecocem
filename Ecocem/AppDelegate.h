@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RotatableTabBarViewController.h"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) RotatableTabBarViewController *tabBarController;
+@property (strong, nonatomic) UINavigationController *navigationController;
 
 @end

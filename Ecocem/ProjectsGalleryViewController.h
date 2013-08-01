@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-@class GalleryViewController;
+#import "GalleryViewController.h"
 
 #import <UIKit/UIKit.h>
 

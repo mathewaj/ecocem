@@ -8,6 +8,9 @@
 
 #import "MasterViewController.h"
 #import "Version Checking.h"
+#import "BlockAlertView.h"
+#import "WebViewController.h"
+#import "Reachability.h"
 
 @implementation MasterViewController
 
@@ -17,39 +20,71 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
-        // Set tab bar title and icon
-        self.title = @"Info";
-        self.tabBarItem.image = [UIImage imageNamed:@"42-info.png"];
+        self.title = @"Information";
         
-        // Set Ecocem logo image for centre of navbar
-        UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Ecocem-Transparent.png"]];
-        self.navigationItem.titleView = titleImageView;
-        
-        // Add logo to left of nav bar for iOS5 upwards
-        
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"5.0")) {
-            
-            UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top-Left-Logo.png"]];
-            [logoView setFrame:CGRectMake(0, 0, 44, 44)];
-            UIBarButtonItem *logoItem = [[UIBarButtonItem alloc] initWithCustomView:logoView];
-            
-            // Create a negative spacer to go to the left of our custom back button, 
-            // and pull it right to the edge:
-            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] 
-                                               initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace 
-                                               target:nil action:nil];
-            negativeSpacer.width = -5; 
-            // Note: We use 5 above b/c that's how many pixels of padding iOS seems to add
-            
-            // Add the two buttons together on the left:
-            self.navigationItem.leftBarButtonItems = [NSArray 
-                                                      arrayWithObjects:negativeSpacer, logoItem, nil];
-            
-        }
     }
     
     return self;
 }
 
+- (IBAction)co2ButtonPushed:(id)sender {
+    
+    BlockAlertView *alert = [BlockAlertView alertWithTitle:nil message:@"You would have to drive around the world at the equator 7 times to release this amount of CO₂!!\n\n"];
+    [alert setCancelButtonWithTitle:@"OK" block:nil];
+    [alert show];
+    
+}
+- (IBAction)websiteButtonPushed:(id)sender {
+    
+    // Check web connection
+    if(![self connected])
+    {
+        [self noConnectionAlert];
+        
+    } else {
+        
+        NSURL *url = [NSURL URLWithString:@"http://www.ecocem.ie/environmental,co2.htm"];
+        WebViewController *wvc = [[WebViewController alloc] init];
+        wvc.url = url;
+        wvc.pageTitle = @"Ecocem Website";
+        [self presentModalViewController:wvc animated:YES];
+        
+    }
+    
+
+    
+    
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)shouldAutorotate {
+    
+    UIInterfaceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    return (orientation == UIInterfaceOrientationPortrait);
+    
+}
+
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return !(networkStatus == NotReachable);
+}
+
+-(void)noConnectionAlert
+{
+    BlockAlertView *alert = [BlockAlertView alertWithTitle:@"Error" message:@"Your device does not have a working internet connection"];
+    [alert setCancelButtonWithTitle:@"OK" block:nil];
+    [alert show];
+}
+
+
+    
+    
 
 @end

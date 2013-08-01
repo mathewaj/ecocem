@@ -23,8 +23,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
-        // Hide tab bar menu from gallery
-        self.hidesBottomBarWhenPushed = YES;
     }
     return self;
 }

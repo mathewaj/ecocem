@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+#import "MainViewController.h"
 #import "MasterViewController.h"
 #import "CalculatorViewController.h"
 #import "ProjectsGalleryViewController.h"
@@ -18,41 +19,23 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize tabBarController = _tabBarController;
+@synthesize navigationController = _navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+   
+    // Set up initial navigation and root controller
     
-    // Set up tabbar with four view controllers
+    MainViewController *mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
+    self.window.rootViewController = self.navigationController;
     
-    // Set up first page as info page
-    UIViewController *viewController1 = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
-    UINavigationController *navigationController1 = [[UINavigationController alloc] initWithRootViewController:viewController1];
-    navigationController1.navigationBar.tintColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
     
-    // Set up second page as calculator page
-    UIViewController *viewController2 = [[CalculatorViewController alloc] initWithNibName:@"CalculatorViewController" bundle:nil];
-    UINavigationController *navigationController2 = [[UINavigationController alloc] initWithRootViewController:viewController2];
-    navigationController2.navigationBar.tintColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
-    
-    // Set up third page as gallery page
-    UIViewController *viewController3 = [[ProjectsGalleryViewController alloc] initWithNibName:@"ProjectsGalleryViewController" bundle:nil];
-    UINavigationController *navigationController3 = [[UINavigationController alloc] initWithRootViewController:viewController3];
-    navigationController3.navigationBar.tintColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
-    
-    // Set up fourth page as contact page
-    UIViewController *viewController4 = [[EcocemIrelandViewController alloc] initWithNibName:@"EcocemIrelandViewController" bundle:nil];
-    UINavigationController *navigationController4 = [[UINavigationController alloc] initWithRootViewController:viewController4];
-    navigationController4.navigationBar.tintColor = [UIColor colorWithRed:0.0f/255.0f green:56.0f/255.0f blue:104.0f/255.0f alpha:1.0];
-    
-    self.tabBarController = [[RotatableTabBarViewController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:navigationController1, navigationController2, navigationController3, navigationController4, nil];
-    self.tabBarController.selectedViewController = navigationController1;
-    self.window.rootViewController = self.tabBarController;
-    
+    // Start up analytics
     [Flurry startSession:@"TK4CNBXCFRVR7DKXDQN7"];
-    [Flurry logAllPageViews:self.tabBarController];
+    [Flurry logAllPageViews:self.navigationController];
     
     [self.window makeKeyAndVisible];
     return YES;
